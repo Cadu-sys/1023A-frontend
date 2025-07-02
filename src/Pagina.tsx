@@ -8,44 +8,54 @@ interface ProdutosState {
 }
 
 function Pagina() {
-    useEffect(()=>{
-        
-    },[])
-    const [id,setId] = useState("")
-    const [nome,setNome] = useState("")
-    const [preco,setPreco] = useState("")
-    const [categoria,setCategoria] = useState("")
+    useEffect(() => {
+        const buscaDados = async () => {
+            const resultado = await fetch("https://localhost:8000/produtos")
+            if (resultado.status === 200) {
+                const dados = await resultado.json(*-/)
+                setProdutos(dados)
+            }
+        }
+        buscaDados();
+    }, [])
+
+
+    const [id, setId] = useState("")
+    const [nome, setNome] = useState("")
+    const [preco, setPreco] = useState("")
+    const [categoria, setCategoria] = useState("")
+    const [ , setMensagem] = useState("")
     const [produtos, setProdutos] = useState<ProdutosState[]>([
         {
-            id: 1,
-            nome: "Caderno",
-            preco: 20,
-            categoria: "Escolar"
+            id: 5,
+            nome: "arroz fardo",
+            preco: 75,
+            categoria: "Alimentos"
         }
     ])
-    function TrataCadastro(event:React.FormEvent<HTMLFormElement>){
+    function TrataCadastro(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         //Criar um novo produto
-        const novoProduto:ProdutosState = {
-            id:parseInt(id),
-            nome:nome,
-            preco:parseFloat(preco),
-            categoria:categoria
+        const novoProduto: ProdutosState = {
+            id: parseInt(id),
+            nome: nome,
+            preco: parseFloat(preco),
+            categoria: categoria
         }
         //Adicionar esse novo produto no vetor/Array de produtos
-        setProdutos([...produtos,novoProduto])
-        
+        setProdutos([...produtos, novoProduto])
+
     }
-    function trataId(event:React.ChangeEvent<HTMLInputElement>){
+    function trataId(event: React.ChangeEvent<HTMLInputElement>) {
         setId(event.target.value)
     }
-    function trataNome(event:React.ChangeEvent<HTMLInputElement>){
+    function trataNome(event: React.ChangeEvent<HTMLInputElement>) {
         setNome(event.target.value)
     }
-    function trataPreco(event:React.ChangeEvent<HTMLInputElement>){
+    function trataPreco(event: React.ChangeEvent<HTMLInputElement>) {
         setPreco(event.target.value)
     }
-    function trataCategoria(event:React.ChangeEvent<HTMLInputElement>){
+    function trataCategoria(event: React.ChangeEvent<HTMLInputElement>) {
         setCategoria(event.target.value)
     }
     return (
@@ -86,11 +96,11 @@ function Pagina() {
                 </div>
                 <div className="container-cadastro">
                     <form onSubmit={TrataCadastro}>
-                        <input type="text" name="id" id="id" onChange={trataId} placeholder="Id"/>
-                        <input type="text" name="nome" id="nome" onChange={trataNome} placeholder="Nome"/>
+                        <input type="text" name="id" id="id" onChange={trataId} placeholder="Id" />
+                        <input type="text" name="nome" id="nome" onChange={trataNome} placeholder="Nome" />
                         <input type="number" name="preco" id="preco" onChange={trataPreco} placeholder="Preço" />
-                        <input type="text" name="categoria" id="categoria" onChange={trataCategoria} placeholder="Categoria"/>
-                        <input type="submit" value="Cadastrar"/>
+                        <input type="text" name="categoria" id="categoria" onChange={trataCategoria} placeholder="Categoria" />
+                        <input type="submit" value="Cadastrar" />
                     </form>
 
                 </div>
@@ -101,3 +111,6 @@ function Pagina() {
 }
 
 export default Pagina
+
+.mensagem 
+
